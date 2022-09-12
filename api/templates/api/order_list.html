@@ -1,0 +1,22 @@
+<html>
+  <head>
+    <title>Buy {{ order.product_num.name }}</title>
+  </head>
+  <body>
+  <h1>order num {{ order.1.order_num }}</h1>
+  {% for item in order %}
+    <p>{{ item.product_num.name }}</p>
+    <p>{{ item.product_num.description }}</p>
+    <p>{{ item.product_num.price }}</p>
+  {% endfor %}
+    <button id="buy-button">Buy</button>
+    <script src="https://js.stripe.com/v3/"></script>
+    <script type="text/javascript">
+      var stripe = Stripe('{{ api_pub_key }}');
+      var buyButton = document.getElementById('buy-button');
+      buyButton.addEventListener('click', function() {
+        stripe.redirectToCheckout({ sessionId: '{{ session_id }}' })
+      });
+    </script>
+  </body>
+</html>
